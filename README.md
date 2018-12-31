@@ -1,2 +1,3 @@
-# paper_test
-Test writing a paper
+# LaTex Setup
+
+This repository contains a basic LaTex Setup
