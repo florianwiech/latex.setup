@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: florianwiech/alpine.cgl
-    branches:
+    branch:
       only:
         - master
     steps:
