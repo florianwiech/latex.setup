@@ -39,7 +39,7 @@ AUTH="Authorization: token $github_api_token"
 # get all releases from GitHub
 GH_REPO_RELEASES=$(curl -X GET -sH "$AUTH" $GH_RELEASES)
 echo "GITHUB REPO RELEASES"
-echo $GH_REPO_RELEASES
+echo "$GH_REPO_RELEASES"
 echo "---------"
 
 # get hash of the last commit
