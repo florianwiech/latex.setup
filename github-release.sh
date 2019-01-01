@@ -52,6 +52,12 @@ echo "commit hash: $GIT_COMMIT"
 # write tags of the last commit into a file
 GIT_TAGS=$(git tag --contains $GIT_COMMIT)
 
+# if commit has no tags, stop script
+if [ "$GIT_TAGS" == "" ]
+then
+    exit
+fi
+
 # loop commit tags
 while read -r tag; do
     echo "Tag: $tag"
