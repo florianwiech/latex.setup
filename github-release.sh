@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This script accepts the following parameters:
 #
@@ -36,6 +36,9 @@ GH_RELEASES="$GH_REPO/releases"
 
 AUTH="Authorization: token $github_api_token"
 
+# Validate token.
+curl -o /dev/null -sH "$AUTH" $GH_REPO || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
+
 # get all releases from GitHub
 GH_REPO_RELEASES=$(curl -X GET -sH "$AUTH" $GH_RELEASES)
 echo "GITHUB REPO RELEASES"
@@ -44,6 +47,7 @@ echo "---------"
 
 # get hash of the last commit
 GIT_COMMIT=$(git log --format="%H" -n 1)
+echo "commit hash: $GIT_COMMIT"
 
 # write tags of the last commit into a file
 GIT_TAGS=$(git tag --contains $GIT_COMMIT)
@@ -71,7 +75,6 @@ while read -r tag; do
         id=$(echo $release_reponse | jq '.id')
         name=$(basename $filename)
         GH_ASSET="https://uploads.github.com/repos/$owner/$repo/releases/$id/assets?name=$name"
-        echo "$GH_ASSET"
         asset_response=$(curl -X POST --data-binary @"$filename" -sH "$AUTH" -H "Content-Type: $content_type" $GH_ASSET)
 
         echo "Append asset:"
