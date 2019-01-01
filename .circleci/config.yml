@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Compile LaTex
-          command: pdftex article.tex
+          command: pdflatex article.tex
       - run:
           name: GitHub Release
           command: chmod +x ./github-release.sh && ./github-release.sh owner=florianwiech repo=latex.setup github_api_token=${GITHUB_TOKEN} filename=article.pdf content_type=application/pdf
